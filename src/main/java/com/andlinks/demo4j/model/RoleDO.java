@@ -14,6 +14,8 @@ public class RoleDO implements Serializable {
 
     private Long id;
 
+    private String uuid;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -34,6 +36,14 @@ public class RoleDO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public Date getCreateTime() {
@@ -100,6 +110,7 @@ public class RoleDO implements Serializable {
         RoleDO roleDO = (RoleDO) o;
 
         if (id != null ? !id.equals(roleDO.id) : roleDO.id != null) return false;
+        if (uuid != null ? !uuid.equals(roleDO.uuid) : roleDO.uuid != null) return false;
         if (createTime != null ? !createTime.equals(roleDO.createTime) : roleDO.createTime != null) return false;
         if (modifyTime != null ? !modifyTime.equals(roleDO.modifyTime) : roleDO.modifyTime != null) return false;
         if (version != null ? !version.equals(roleDO.version) : roleDO.version != null) return false;
@@ -110,6 +121,7 @@ public class RoleDO implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (modifyTime != null ? modifyTime.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
@@ -122,6 +134,7 @@ public class RoleDO implements Serializable {
     public String toString() {
         return "RoleDO{" +
                 "id=" + id +
+                ", uuid='" + uuid + '\'' +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
                 ", version=" + version +
