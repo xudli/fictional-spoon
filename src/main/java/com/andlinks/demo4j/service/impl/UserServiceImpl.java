@@ -6,6 +6,8 @@ import com.andlinks.demo4j.service.UserService;
 import com.andlinks.demo4j.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,8 +51,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void updateRoles(String userUuid, String[] roleUuids) {
-        userMapper.updateRoles(userUuid,roleUuids);
+
+        userMapper.removeUsers(userUuid);
+        userMapper.insertRoles(userUuid,roleUuids);
     }
 
     @Override

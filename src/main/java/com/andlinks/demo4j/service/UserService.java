@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface UserService {
 
-
     /**
      * 根据id查询
      * @param id
@@ -32,11 +31,10 @@ public interface UserService {
      */
     List<UserDO> list();
 
-
     /**
      * 保存
      * @param user
-     * @return
+     * @return uuid
      */
     String save(UserDO user);
 
@@ -58,6 +56,5 @@ public interface UserService {
      * @param uuid
      */
     void remove(String uuid);
-
 
 }

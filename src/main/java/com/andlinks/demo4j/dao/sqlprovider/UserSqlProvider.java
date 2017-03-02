@@ -5,12 +5,17 @@ import org.apache.ibatis.jdbc.SQL;
 import java.util.Map;
 
 /**
- * Created by 王凯斌 on 2017/3/1.
+ * Created by 王凯斌 on 2017/3/2.
  * user的SqlProvider类
  */
 public class UserSqlProvider {
 
-    public String updateRoles(Map<String, Object> para){
+    public String removeRoles(){
+        return new SQL().DELETE_FROM("user_role")
+                .WHERE("user_uuid=#{uuid}").toString();
+    }
+
+    public String insertRoles(Map<String, Object> para){
 
         String userUuid = (String)para.get("userUuid");
         String[] roleUuids = (String[])para.get("roleUuids");

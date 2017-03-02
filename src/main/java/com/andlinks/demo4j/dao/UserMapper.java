@@ -41,13 +41,16 @@ public interface UserMapper {
             "where user.uuid = #{uuid}")
     void update(UserDO user);
 
-    @InsertProvider(type = UserSqlProvider.class,method = "updateRoles")
-    void updateRoles(@Param("userUuid")String userUuid, @Param("roleUuids")String[] roleUuids);
+    @DeleteProvider(type = UserSqlProvider.class, method = "removeRoles")
+    void removeRoles(@Param("uuid")String uuid);
+
+    @InsertProvider(type = UserSqlProvider.class,method = "insertRoles")
+    void insertRoles(@Param("userUuid")String userUuid, @Param("roleUuids")String[] roleUuids);
 
     @UpdateProvider(type = UserSqlProvider.class,method = "remove")
     void remove(@Param("uuid")String uuid);
 
-    @Select("select r.id from role r left join user_role u on r.uuid = u.role_uuid where u.user_uuid = #{uuid}")
+    @Select("select r.id from role r left join user_role u on r.uuid = u.role_uuid where u.user_uuid = #{uuid} and is_deleted = 0")
     List<RoleDO> listRoles(String uuid);
 }
 
