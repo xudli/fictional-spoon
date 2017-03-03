@@ -12,6 +12,7 @@ import java.util.List;
  * Created by 王凯斌 on 2017/3/2.
  * 角色mapper类
  */
+@Mapper
 public interface RoleMapper {
 
     @SelectProvider(type = RoleSqlProvider.class, method = "getById")

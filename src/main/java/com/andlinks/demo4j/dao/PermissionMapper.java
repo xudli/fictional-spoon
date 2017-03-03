@@ -11,6 +11,7 @@ import java.util.List;
  * Created by 王凯斌 on 2017/3/2.
  * 权限mapper类
  */
+@Mapper
 public interface PermissionMapper {
 
     @SelectProvider(type = PermissionSqlProvider.class, method = "getById")

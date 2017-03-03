@@ -49,7 +49,7 @@ public class PermissionSqlProvider {
                 .WHERE("permission_uuid=#{uuid}").toString();
     }
 
-    public String insertPermissions(Map<String, Object> para){
+    public String insertRoles(Map<String, Object> para){
 
         String permissionUuid = (String)para.get("permissionUuid");
         String[] roleUuids = (String[])para.get("roleUuids");

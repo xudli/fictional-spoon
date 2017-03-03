@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void updateRoles(String userUuid, String[] roleUuids) {
 
-        userMapper.removeUsers(userUuid);
+        userMapper.removeRoles(userUuid);
         userMapper.insertRoles(userUuid,roleUuids);
     }
 
