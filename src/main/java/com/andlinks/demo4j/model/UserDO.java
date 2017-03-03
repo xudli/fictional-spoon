@@ -3,6 +3,7 @@ package com.andlinks.demo4j.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 王凯斌 on 2017/3/1.
@@ -29,6 +30,8 @@ public class UserDO implements Serializable{
     private String password;
 
     private List<RoleDO> roles;
+
+    private Set<PermissionDO> permissionDOs;
 
     public Long getId() {
         return id;
@@ -100,6 +103,14 @@ public class UserDO implements Serializable{
 
     public void setRoles(List<RoleDO> roles) {
         this.roles = roles;
+    }
+
+    public Set<PermissionDO> getPermissionDOs() {
+        return permissionDOs;
+    }
+
+    public void setPermissionDOs(Set<PermissionDO> permissionDOs) {
+        this.permissionDOs = permissionDOs;
     }
 
     @Override

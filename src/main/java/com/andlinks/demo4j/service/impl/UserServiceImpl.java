@@ -4,6 +4,7 @@ import com.andlinks.demo4j.dao.UserMapper;
 import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.UserService;
 import com.andlinks.demo4j.util.UuidUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDO getByUserName(String userName) {
+        return userMapper.getByUserName(userName);
+    }
+
+    @Override
     public List<UserDO> list() {
         return userMapper.list();
     }
@@ -39,8 +45,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public String save(UserDO user) {
 
+        if(getByUserName(user.getUserName())!=null){
+            return null;
+        }
         String uuid = UuidUtils.getUUID(UserDO.class);
         user.setUuid(uuid);
+        user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         userMapper.save(user);
         return uuid;
     }

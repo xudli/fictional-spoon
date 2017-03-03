@@ -1,11 +1,14 @@
 package com.andlinks.demo4j.dao;
 
+import com.andlinks.demo4j.dao.sqlprovider.RoleSqlProvider;
 import com.andlinks.demo4j.dao.sqlprovider.UserSqlProvider;
+import com.andlinks.demo4j.model.PermissionDO;
 import com.andlinks.demo4j.model.RoleDO;
 import com.andlinks.demo4j.model.UserDO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 王凯斌 on 2017/3/1.
@@ -14,20 +17,30 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("select user.id, user.uuid, user.user_name, user.password from user where user.id = #{id}")
+    @SelectProvider(type = UserSqlProvider.class, method = "getById")
     @Results(id="userBase", value = {
             @Result(property="id", column="id"),
             @Result(property="uuid", column="uuid"),
+            @Result(property = "createTime", column = "create_time"),
+            @Result(property = "modifyTime", column = "modify_time"),
+            @Result(property = "version", column = "version"),
+            @Result(property = "deleted", column = "is_deleted"),
             @Result(property="userName", column="user_name"),
             @Result(property="password", column="password"),
             @Result(property="roles", javaType=List.class, column="uuid",
-                    many=@Many(select="listRoles"))
+                    many=@Many(select="listRoles")),
+            @Result(property="permissionDOs", javaType=Set.class, column="uuid",
+                    many=@Many(select="listPermissions"))
     })
     UserDO getById(@Param("id")Long id);
 
-    @Select("select user.id, user.uuid, user.user_name, user.password from user where user.uuid = #{uuid}")
+    @SelectProvider(type = UserSqlProvider.class, method = "getByUuid")
     @ResultMap(value = "userBase")
     UserDO getByUuid(@Param("uuid")String uuid);
+
+    @SelectProvider(type = UserSqlProvider.class, method = "getByUserName")
+    @ResultMap(value = "userBase")
+    UserDO getByUserName(@Param("userName")String userName);
 
     @Select("select user.id, user.uuid, user.user_name, user.password from user where is_deleted = 0")
     @ResultMap(value = "userBase")
@@ -50,8 +63,21 @@ public interface UserMapper {
     @UpdateProvider(type = UserSqlProvider.class,method = "remove")
     void remove(@Param("uuid")String uuid);
 
-    @Select("select r.id from role r left join user_role u on r.uuid = u.role_uuid where u.user_uuid = #{uuid} and is_deleted = 0")
+    @SelectProvider(type = UserSqlProvider.class, method = "listRoles")
+    @Results(id="roleLite", value= {
+            @Result(property = "id", column = "id"),
+            @Result(property = "uuid", column = "uuid"),
+            @Result(property = "roleName", column = "role_name"),
+    })
     List<RoleDO> listRoles(String uuid);
+
+    @SelectProvider(type = UserSqlProvider.class, method = "listPermissions")
+    @Results(value = {
+            @Result(property="id", column="id"),
+            @Result(property="uuid", column="uuid"),
+            @Result(property="permissionName", column="permission_name"),
+    })
+    Set<PermissionDO> listPermissions(String uuid);
 }
 
 

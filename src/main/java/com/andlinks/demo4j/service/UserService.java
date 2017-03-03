@@ -26,6 +26,13 @@ public interface UserService {
     UserDO getByUuid(String uuid);
 
     /**
+     * 根据用户名查询
+     * @param userName
+     * @return
+     */
+    UserDO getByUserName(String userName);
+
+    /**
      * 获得全部user
      * @return
      */

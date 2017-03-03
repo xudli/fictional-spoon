@@ -1,8 +1,11 @@
 package com.andlinks.demo4j.controller;
 
 import com.andlinks.demo4j.dao.UserMapper;
+import com.andlinks.demo4j.model.RoleDO;
 import com.andlinks.demo4j.model.UserDO;
+import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,28 +19,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private UserService userService;
 
-    @RequestMapping("/delete")
-    public UserDO test(Long id,String userName, String password){
+    @Autowired
+    private RoleService roleService;
 
-        UserDO user = userMapper.getById(id);
-        userMapper.remove(user.getUuid());
-        System.out.println(user);
-        System.out.println(userMapper.getById(id));
-        return user;
+    @RequestMapping("/delete")
+    public String delete(Long id){
+
+        UserDO user = userService.getById(id);
+        userService.remove(user.getUuid());
+        return "success";
     }
 
+    @RequiresPermissions("1")
     @RequestMapping("/add")
-    public UserDO add(Long id,String userName, String password){
+    public UserDO add(String userName, String password){
 
         UserDO user = new UserDO();
         user.setUserName(userName);
         user.setPassword(password);
         String uuid = userService.save(user);
-        return userMapper.getByUuid(uuid);
+        return userService.getByUuid(uuid);
+    }
+
+    @RequestMapping("/find")
+    public UserDO find(String userName){
+
+        return userService.getByUserName(userName);
+    }
+
+    @RequestMapping("/addRole")
+    public RoleDO addRole(String roleName ){
+
+        RoleDO role = new RoleDO();
+        role.setRoleName(roleName);
+        String uuid = roleService.save(role);
+        return roleService.getByUuid(uuid);
     }
 }

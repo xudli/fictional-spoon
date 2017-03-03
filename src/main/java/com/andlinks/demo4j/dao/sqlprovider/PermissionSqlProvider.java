@@ -78,4 +78,6 @@ public class PermissionSqlProvider {
                 .LEFT_OUTER_JOIN("role_permission rp on r.uuid = rp.role_uuid")
                 .WHERE("ur.permission_uuid = #{uuid}","is_deleted = 0").toString();
     }
+
+
 }

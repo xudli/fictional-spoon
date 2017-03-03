@@ -2,7 +2,6 @@ package com.andlinks.demo4j.service.impl;
 
 import com.andlinks.demo4j.dao.RoleMapper;
 import com.andlinks.demo4j.model.RoleDO;
-import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public String save(RoleDO roleDO) {
 
-        String uuid = UuidUtils.getUUID(UserDO.class);
+        String uuid = UuidUtils.getUUID(RoleDO.class);
         roleDO.setUuid(uuid);
         roleMapper.save(roleDO);
         return uuid;

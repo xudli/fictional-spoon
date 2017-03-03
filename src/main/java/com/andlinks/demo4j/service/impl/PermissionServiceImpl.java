@@ -2,7 +2,6 @@ package com.andlinks.demo4j.service.impl;
 
 import com.andlinks.demo4j.dao.PermissionMapper;
 import com.andlinks.demo4j.model.PermissionDO;
-import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.PermissionService;
 import com.andlinks.demo4j.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class PermissionServiceImpl implements PermissionService{
 
     @Override
     public String save(PermissionDO permissionDO) {
-        String uuid = UuidUtils.getUUID(UserDO.class);
+        String uuid = UuidUtils.getUUID(PermissionDO.class);
         permissionDO.setUuid(uuid);
         permissionMapper.save(permissionDO);
         return uuid;
