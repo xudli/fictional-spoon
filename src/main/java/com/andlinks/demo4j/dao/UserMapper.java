@@ -42,7 +42,7 @@ public interface UserMapper {
     @ResultMap(value = "userBase")
     UserDO getByUserName(@Param("userName")String userName);
 
-    @Select("select user.id, user.uuid, user.user_name, user.password from user where is_deleted = 0")
+    @SelectProvider(type = UserSqlProvider.class, method = "list")
     @ResultMap(value = "userBase")
     List<UserDO> list();
 

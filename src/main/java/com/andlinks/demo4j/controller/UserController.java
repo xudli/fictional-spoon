@@ -7,15 +7,19 @@ import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by 王凯斌 on 2017/3/1.
  * 用户相关controller
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -24,37 +28,15 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/delete")
-    public String delete(Long id){
+    @RequestMapping(value="/user/{uuid}",method=RequestMethod.GET)
+    public UserDO doGet(@PathVariable String uuid){
 
-        UserDO user = userService.getById(id);
-        userService.remove(user.getUuid());
-        return "success";
-    }
-
-    @RequiresPermissions("1")
-    @RequestMapping("/add")
-    public UserDO add(String userName, String password){
-
-        UserDO user = new UserDO();
-        user.setUserName(userName);
-        user.setPassword(password);
-        String uuid = userService.save(user);
         return userService.getByUuid(uuid);
     }
 
-    @RequestMapping("/find")
-    public UserDO find(String userName){
+    @RequestMapping(value="/user",method = RequestMethod.GET)
+    public List<UserDO> list(){
 
-        return userService.getByUserName(userName);
-    }
-
-    @RequestMapping("/addRole")
-    public RoleDO addRole(String roleName ){
-
-        RoleDO role = new RoleDO();
-        role.setRoleName(roleName);
-        String uuid = roleService.save(role);
-        return roleService.getByUuid(uuid);
+        return userService.list();
     }
 }

@@ -31,6 +31,13 @@ public class UserSqlProvider {
                 .WHERE("user_name = #{userName}").toString();
     }
 
+    public String list(){
+        return new SQL()
+                .SELECT("id, user_name, password, create_time, modify_time, version, is_deleted, uuid")
+                .FROM("user")
+                .WHERE("is_deleted = 0").toString();
+    }
+
     public String removeRoles(){
         return new SQL().DELETE_FROM("user_role")
                 .WHERE("user_uuid=#{uuid}").toString();

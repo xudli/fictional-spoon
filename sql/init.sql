@@ -33,7 +33,7 @@ CREATE TABLE `permission` (
   `permission_name` varchar(255) DEFAULT NULL,
   `uuid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `permission` (
 
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
+INSERT INTO `permission` VALUES (1,NULL,NULL,NULL,NULL,'1','1'),(2,NULL,NULL,NULL,NULL,'2','2'),(3,NULL,NULL,NULL,NULL,'3','3');
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +62,7 @@ CREATE TABLE `role` (
   `role_name` varchar(255) DEFAULT NULL,
   `uuid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +71,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'2017-03-03 10:56:40','2017-03-03 10:56:40',0,0,'超级管理员','UserDO-de174923-b3e1-491c-a84f-09848b66e522'),(2,'2017-03-03 10:58:04','2017-03-03 10:58:04',0,0,'管理员','UserDO-276de136-c940-46e0-89e6-c6622d04c8ef');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,6 +94,7 @@ CREATE TABLE `role_permission` (
 
 LOCK TABLES `role_permission` WRITE;
 /*!40000 ALTER TABLE `role_permission` DISABLE KEYS */;
+INSERT INTO `role_permission` VALUES ('UserDO-de174923-b3e1-491c-a84f-09848b66e522','1'),('UserDO-de174923-b3e1-491c-a84f-09848b66e522','2'),('UserDO-276de136-c940-46e0-89e6-c6622d04c8ef','3');
 /*!40000 ALTER TABLE `role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,8 +114,9 @@ CREATE TABLE `user` (
   `user_name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `uuid` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_name_UNIQUE` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,6 +125,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'2017-03-03 09:41:41','2017-03-03 16:02:41',4,1,'王凯斌v587','19910825','UserDO-73ee4070-7c81-4eb2-bc7e-75744573a154'),(2,'2017-03-03 15:44:33','2017-03-03 15:44:33',0,0,'admin','6f9822851dfc6c1045c6fef827e5d729','UserDO-5ad5786a-8717-48c8-b68c-1eae1b0ab999');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,6 +148,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` VALUES ('UserDO-73ee4070-7c81-4eb2-bc7e-75744573a154','UserDO-de174923-b3e1-491c-a84f-09848b66e522'),('UserDO-73ee4070-7c81-4eb2-bc7e-75744573a154','UserDO-276de136-c940-46e0-89e6-c6622d04c8ef');
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-02 16:37:00
+-- Dump completed on 2017-03-05 18:34:43

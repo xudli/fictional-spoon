@@ -34,7 +34,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input id="email" name="userName" type="text" class="form-control input-lg input-transparent"
+                                    <input id="email" name="username" type="text" class="form-control input-lg input-transparent"
                                            placeholder="Your Email">
                                 </div>
                             </div>
