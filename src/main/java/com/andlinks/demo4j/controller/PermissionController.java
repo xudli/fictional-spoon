@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class PermissionController {
 	@Autowired
 	private PermissionService permissionService;
 
-	@RequestMapping(value = "/permisson/{uuid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/permission/{uuid}", method = RequestMethod.GET)
 	public PermissionDO doGet(@PathVariable String uuid) {
 		return permissionService.getByUuid(uuid);
 	}
@@ -32,6 +33,21 @@ public class PermissionController {
 	@RequestMapping(value = "/permission", method = RequestMethod.GET)
 	public List<PermissionDO> list() {
 		return permissionService.list();
+	}
+	
+	@RequestMapping(value = "/permission",method = RequestMethod.PUT)
+	public String doSave(@RequestBody PermissionDO	permission){
+		return permissionService.save(permission);
+	}
+	
+	@RequestMapping(value = "/permission",method = RequestMethod.POST)
+	public void doUpdate(@RequestBody PermissionDO	permission){
+	   permissionService.update(permission);
+	}
+	
+	@RequestMapping(value = "/permission/{uuid}",method = RequestMethod.DELETE)
+	public void doRemove(@PathVariable String uuid){
+	   permissionService.remove(uuid);
 	}
 	
 	
