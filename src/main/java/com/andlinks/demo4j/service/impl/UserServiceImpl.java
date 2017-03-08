@@ -4,6 +4,7 @@ import com.andlinks.demo4j.dao.UserMapper;
 import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.UserService;
 import com.andlinks.demo4j.util.UuidUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void update(UserDO user) {
+
+        if(!StringUtils.isEmpty(user.getPassword())){
+            user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+        }
         userMapper.update(user);
     }
 

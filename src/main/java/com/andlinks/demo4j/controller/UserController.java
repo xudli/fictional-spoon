@@ -39,4 +39,10 @@ public class UserController {
 
         return userService.list();
     }
+
+    @RequestMapping(value="/user",method = RequestMethod.POST)
+    public String save(UserDO user){
+
+        return userService.save(user);
+    }
 }
