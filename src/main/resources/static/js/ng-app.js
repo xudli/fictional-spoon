@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', [ 'ngRoute','ngResource','mainApp.controllers','mainApp.permissionControllers','mainApp.services'
+var mainApp = angular.module('mainApp', [ 'ngRoute','ngResource','mainApp.controllers','mainApp.permissionControllers','mainApp.roleControllers','mainApp.services'
      ]);
 
 mainApp.run(function ($rootScope, $location) {
