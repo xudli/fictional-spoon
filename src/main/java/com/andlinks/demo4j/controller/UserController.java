@@ -5,8 +5,10 @@ import com.andlinks.demo4j.model.RoleDO;
 import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.service.UserService;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,27 +24,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleService roleService;
-
+    @RequiresPermissions("user:read")
     @RequestMapping(value="/user/{uuid}",method=RequestMethod.GET)
     public UserDO get(@PathVariable String uuid){
 
         return userService.getByUuid(uuid);
     }
 
+    @RequiresPermissions("user:read")
     @RequestMapping(value="/user",method = RequestMethod.GET)
     public List<UserDO> list(){
 
         return userService.list();
     }
 
+    @RequiresPermissions("user:write")
     @RequestMapping(value="/user",method = RequestMethod.POST)
     public String save(UserDO user){
 
         return userService.save(user);
     }
 
+    @RequiresPermissions("user:write")
     @RequestMapping(value="/user/{uuid}",method = RequestMethod.PUT)
     public String update(@PathVariable String uuid,UserDO user){
 
@@ -51,6 +54,7 @@ public class UserController {
         return "success";
     }
 
+    @RequiresPermissions("user:write")
     @RequestMapping(value="/user/{uuid}/roles",method = RequestMethod.PUT)
     public String updateRoles(@PathVariable String uuid,String[] roleUuids){
 
@@ -58,10 +62,18 @@ public class UserController {
         return "success";
     }
 
+    @RequiresPermissions("user:write")
     @RequestMapping(value="/user/{uuid}",method = RequestMethod.DELETE)
     public String delete(@PathVariable String uuid){
 
         userService.remove(uuid);
         return "success";
+    }
+
+    @ResponseStatus(value= HttpStatus.FORBIDDEN, reason="您没有此操作的权限")
+    @ExceptionHandler(AuthorizationException.class)
+    public String handleError() {
+
+        return "您没有此操作的权限";
     }
 }

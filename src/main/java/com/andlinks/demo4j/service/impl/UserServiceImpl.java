@@ -61,8 +61,11 @@ public class UserServiceImpl implements UserService{
 
         if(!StringUtils.isEmpty(user.getPassword())){
             user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+            userMapper.update(user);
+        }else{
+            userMapper.updateWithoutPassword(user);
         }
-        userMapper.update(user);
+
     }
 
     @Override

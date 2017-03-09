@@ -50,9 +50,11 @@ public interface UserMapper {
             "values( #{userName}, #{password}, now(), now(), 0, 0, #{uuid})")
     void save(UserDO userDO);
 
-    @Update("update user set user_name=#{userName},password=#{password},modify_time=now(),version=version+1 " +
-            "where user.uuid = #{uuid}")
+    @UpdateProvider(type = UserSqlProvider.class,method = "update")
     void update(UserDO user);
+
+    @UpdateProvider(type = UserSqlProvider.class,method = "updateWithoutPassword")
+    void updateWithoutPassword(UserDO user);
 
     @DeleteProvider(type = UserSqlProvider.class, method = "removeRoles")
     void removeRoles(@Param("uuid")String uuid);

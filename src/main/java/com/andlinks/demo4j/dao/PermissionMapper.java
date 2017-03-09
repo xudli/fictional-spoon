@@ -23,6 +23,7 @@ public interface PermissionMapper {
             @Result(property = "version", column = "version"),
             @Result(property = "deleted", column = "is_deleted"),
             @Result(property = "permissionName", column = "permission_name"),
+            @Result(property = "permissionNameCN", column = "permission_name_cn"),
             @Result(property = "roles", javaType = List.class, column = "uuid",
                     many = @Many(select = "listRoles"))
     })

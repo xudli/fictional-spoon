@@ -38,6 +38,18 @@ public class UserSqlProvider {
                 .WHERE("is_deleted = 0").toString();
     }
 
+    public String update(){
+        return new SQL().UPDATE("user")
+                .SET("user_name=#{userName}, password=#{password}, modify_time=now(),version=version+1")
+                .WHERE("uuid = #{uuid}").toString();
+    }
+
+    public String updateWithoutPassword(){
+        return new SQL().UPDATE("user")
+                .SET("user_name=#{userName}, modify_time=now(),version=version+1")
+                .WHERE("uuid = #{uuid}").toString();
+    }
+
     public String removeRoles(){
         return new SQL().DELETE_FROM("user_role")
                 .WHERE("user_uuid=#{uuid}").toString();

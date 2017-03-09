@@ -43,4 +43,9 @@ public class LoginController {
         return mv;
     }
 
+    @RequestMapping(value="/unAuthorized")
+    public String unAuthorized(){
+        return "/admin/unAuthorized";
+    }
+
 }

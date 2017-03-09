@@ -26,6 +26,8 @@ public class PermissionDO implements Serializable {
 
     private String permissionName;
 
+    private String permissionNameCN;
+
     private List<RoleDO> roles;
 
     public Long getId() {
@@ -84,6 +86,14 @@ public class PermissionDO implements Serializable {
         this.permissionName = permissionName;
     }
 
+    public String getPermissionNameCN() {
+        return permissionNameCN;
+    }
+
+    public void setPermissionNameCN(String permissionNameCN) {
+        this.permissionNameCN = permissionNameCN;
+    }
+
     public List<RoleDO> getRoles() {
         return roles;
     }
@@ -105,7 +115,9 @@ public class PermissionDO implements Serializable {
         if (modifyTime != null ? !modifyTime.equals(that.modifyTime) : that.modifyTime != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
         if (deleted != null ? !deleted.equals(that.deleted) : that.deleted != null) return false;
-        return permissionName != null ? permissionName.equals(that.permissionName) : that.permissionName == null;
+        if (permissionName != null ? !permissionName.equals(that.permissionName) : that.permissionName != null)
+            return false;
+        return permissionNameCN != null ? permissionNameCN.equals(that.permissionNameCN) : that.permissionNameCN == null;
     }
 
     @Override
@@ -117,6 +129,7 @@ public class PermissionDO implements Serializable {
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         result = 31 * result + (permissionName != null ? permissionName.hashCode() : 0);
+        result = 31 * result + (permissionNameCN != null ? permissionNameCN.hashCode() : 0);
         return result;
     }
 
@@ -130,6 +143,7 @@ public class PermissionDO implements Serializable {
                 ", version=" + version +
                 ", deleted=" + deleted +
                 ", permissionName='" + permissionName + '\'' +
+                ", permissionNameCN='" + permissionNameCN + '\'' +
                 '}';
     }
 }

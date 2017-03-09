@@ -13,34 +13,34 @@ public class PermissionSqlProvider {
 
     public String getById(@Param("id")Long id){
         return new SQL()
-                .SELECT("id, permission_name, create_time, modify_time, version, is_deleted, uuid")
+                .SELECT("id, permission_name, permission_name_cn, create_time, modify_time, version, is_deleted, uuid")
                 .FROM("permission")
                 .WHERE("id = #{id}").toString();
     }
 
     public String getByUuid(){
         return new SQL()
-                .SELECT("id, permission_name, create_time, modify_time, version, is_deleted, uuid")
+                .SELECT("id, permission_name, permission_name_cn, create_time, modify_time, version, is_deleted, uuid")
                 .FROM("permission")
                 .WHERE("uuid = #{uuid}").toString();
     }
 
     public String list(){
         return new SQL()
-                .SELECT("id, permission_name, create_time, modify_time, version, is_deleted, uuid")
+                .SELECT("id, permission_name, permission_name_cn, create_time, modify_time, version, is_deleted, uuid")
                 .FROM("permission")
                 .WHERE("is_deleted = 0").toString();
     }
 
     public String save(){
         return new SQL().INSERT_INTO("permission")
-                .VALUES("permission_name, create_time, modify_time, version, is_deleted, uuid",
-                        "#{permissionName}, now(), now(), 0, 0, #{uuid}").toString();
+                .VALUES("permission_name, permission_name_cn, create_time, modify_time, version, is_deleted, uuid",
+                        "#{permissionName}, #{permissionNameCN}, now(), now(), 0, 0, #{uuid}").toString();
     }
 
     public String update(){
         return new SQL().UPDATE("permission")
-                .SET("permission_name=#{permissionName}, modify_time=now(),version=version+1")
+                .SET("permission_name=#{permissionName},permission_name_cn=#{permissionNameCN}, modify_time=now(),version=version+1")
                 .WHERE("uuid = #{uuid}").toString();
     }
 
