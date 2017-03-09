@@ -1,5 +1,6 @@
 package com.andlinks.demo4j.controller;
 
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
@@ -27,18 +28,18 @@ public class LoginController {
         String msg = "";
         if (exception != null) {
             if (UnknownAccountException.class.getName().equals(exception)) {
-                msg = "UnknownAccountException -- > 账号不存在：";
+                msg = "账号不存在!";
             } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-                msg = "IncorrectCredentialsException -- > 密码不正确：";
-            } else if ("kaptchaValidateFailed".equals(exception)) {
-                msg = "kaptchaValidateFailed -- > 验证码错误";
+                msg = "用户名或密码错误！";
+            } else if (DisabledAccountException.class.getName().equals(exception)) {
+                msg = "该用户已被删除";
             } else {
-                msg = "else >> "+exception;
+                msg = "未知错误";
             }
         }
         map.put("msg", msg);
         // 此方法不处理登录成功,由shiro进行处理.
-        ModelAndView mv =new ModelAndView("/admin/loginPage");
+        ModelAndView mv =new ModelAndView("/admin/loginPage",map);
         return mv;
     }
 

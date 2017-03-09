@@ -46,6 +46,9 @@ public class ShiroRealm extends AuthorizingRealm {
         if(userDO==null){
             throw new UnknownAccountException();//没找到帐号
         }
+        if(userDO.getDeleted()){
+            throw new DisabledAccountException();
+        }
         if (!DigestUtils.md5Hex(password).equals(userDO.getPassword())) {
             throw new IncorrectCredentialsException();
         }

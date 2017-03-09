@@ -54,7 +54,10 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void updatePermission(String roleUuid, String[] permissionUuids) {
         roleMapper.removePermissions(roleUuid);
-        roleMapper.insertPermissions(roleUuid, permissionUuids);
+        if(permissionUuids!=null&&permissionUuids.length!=0){
+            roleMapper.insertPermissions(roleUuid, permissionUuids);
+        }
+
     }
 
     @Override

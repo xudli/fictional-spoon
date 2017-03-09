@@ -7,10 +7,7 @@ import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class UserController {
     private RoleService roleService;
 
     @RequestMapping(value="/user/{uuid}",method=RequestMethod.GET)
-    public UserDO doGet(@PathVariable String uuid){
+    public UserDO get(@PathVariable String uuid){
 
         return userService.getByUuid(uuid);
     }
@@ -44,5 +41,27 @@ public class UserController {
     public String save(UserDO user){
 
         return userService.save(user);
+    }
+
+    @RequestMapping(value="/user/{uuid}",method = RequestMethod.PUT)
+    public String update(@PathVariable String uuid,UserDO user){
+
+        user.setUuid(uuid);
+        userService.update(user);
+        return "success";
+    }
+
+    @RequestMapping(value="/user/{uuid}/roles",method = RequestMethod.PUT)
+    public String updateRoles(@PathVariable String uuid,String[] roleUuids){
+
+        userService.updateRoles(uuid,roleUuids);
+        return "success";
+    }
+
+    @RequestMapping(value="/user/{uuid}",method = RequestMethod.DELETE)
+    public String delete(@PathVariable String uuid){
+
+        userService.remove(uuid);
+        return "success";
     }
 }

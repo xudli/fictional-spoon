@@ -2,6 +2,7 @@ package com.andlinks.demo4j.controller;
 
 import java.util.List;
 
+import com.andlinks.demo4j.model.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class RoleController {
 	private RoleService roleService;
 
 	@RequestMapping(value = "/role/{uuid}", method = RequestMethod.GET)
-	public RoleDO doGet(@PathVariable String uuid) {
+	public RoleDO get(@PathVariable String uuid) {
 		return roleService.getByUuid(uuid);
 	}
 
@@ -35,18 +36,31 @@ public class RoleController {
 		return roleService.list();
 	}
 
-	@RequestMapping(value = "/role", method = RequestMethod.PUT)
-	public String doSave(@RequestBody RoleDO role) {
+	@RequestMapping(value="/role",method = RequestMethod.POST)
+	public String save(RoleDO role){
+
 		return roleService.save(role);
 	}
 
-	@RequestMapping(value = "/role", method = RequestMethod.POST)
-	public void doUpdate(@RequestBody RoleDO role) {
+	@RequestMapping(value="/role/{uuid}",method = RequestMethod.PUT)
+	public String update(@PathVariable String uuid,RoleDO role){
+
+		role.setUuid(uuid);
 		roleService.update(role);
+		return "success";
 	}
 
-	@RequestMapping(value = "/role/{uuid}", method = RequestMethod.DELETE)
-	public void doRemove(@PathVariable String uuid) {
+	@RequestMapping(value="/role/{uuid}",method = RequestMethod.DELETE)
+	public String delete(@PathVariable String uuid){
+
 		roleService.remove(uuid);
+		return "success";
+	}
+
+	@RequestMapping(value="/role/{uuid}/permissions",method = RequestMethod.PUT)
+	public String updatePermissions(@PathVariable String uuid,String[] permissionUuids){
+
+		roleService.updatePermission(uuid,permissionUuids);
+		return "success";
 	}
 }

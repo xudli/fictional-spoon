@@ -2,6 +2,7 @@ package com.andlinks.demo4j.controller;
 
 import java.util.List;
 
+import com.andlinks.demo4j.model.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class PermissionController {
 	private PermissionService permissionService;
 
 	@RequestMapping(value = "/permission/{uuid}", method = RequestMethod.GET)
-	public PermissionDO doGet(@PathVariable String uuid) {
+	public PermissionDO get(@PathVariable String uuid) {
 		return permissionService.getByUuid(uuid);
 	}
 
@@ -34,21 +35,27 @@ public class PermissionController {
 	public List<PermissionDO> list() {
 		return permissionService.list();
 	}
-	
-	@RequestMapping(value = "/permission",method = RequestMethod.PUT)
-	public String doSave(@RequestBody PermissionDO	permission){
+
+	@RequestMapping(value="/permission",method = RequestMethod.POST)
+	public String save(PermissionDO	permission){
+
 		return permissionService.save(permission);
 	}
-	
-	@RequestMapping(value = "/permission",method = RequestMethod.POST)
-	public void doUpdate(@RequestBody PermissionDO	permission){
-	   permissionService.update(permission);
+
+	@RequestMapping(value="/permission/{uuid}",method = RequestMethod.PUT)
+	public String update(@PathVariable String uuid,PermissionDO	permission){
+
+		permission.setUuid(uuid);
+		permissionService.update(permission);
+		return "success";
 	}
-	
-	@RequestMapping(value = "/permission/{uuid}",method = RequestMethod.DELETE)
-	public void doRemove(@PathVariable String uuid){
-	   permissionService.remove(uuid);
+
+	@RequestMapping(value="/permission/{uuid}",method = RequestMethod.DELETE)
+	public String delete(@PathVariable String uuid){
+
+		permissionService.remove(uuid);
+		return "success";
 	}
-	
-	
+
+
 }

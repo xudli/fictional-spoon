@@ -60,7 +60,7 @@ public class RoleSqlProvider {
         StringBuffer sql = new StringBuffer("insert into user_role (user_uuid, role_uuid) values ");
         for(String userUuid:userUuids){
             sql.append("(");
-            sql.append(String.join(",",userUuid,roleUuid));
+            sql.append(String.join(",","'"+userUuid+"'","'"+roleUuid+"'"));
             sql.append("),");
         }
         sql.deleteCharAt(sql.length()-1);
@@ -79,7 +79,7 @@ public class RoleSqlProvider {
         StringBuffer sql = new StringBuffer("insert into role_permission (role_uuid, permission_uuid) values ");
         for(String permissionUuid:permissionUuids){
             sql.append("(");
-            sql.append(String.join(",",roleUuid,permissionUuid));
+            sql.append(String.join(",","'"+roleUuid+"'","'"+permissionUuid+"'"));
             sql.append("),");
         }
         sql.deleteCharAt(sql.length()-1);

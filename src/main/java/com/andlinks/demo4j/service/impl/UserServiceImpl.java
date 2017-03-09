@@ -70,7 +70,10 @@ public class UserServiceImpl implements UserService{
     public void updateRoles(String userUuid, String[] roleUuids) {
 
         userMapper.removeRoles(userUuid);
-        userMapper.insertRoles(userUuid,roleUuids);
+        if(roleUuids!=null&&roleUuids.length!=0){
+            userMapper.insertRoles(userUuid,roleUuids);
+        }
+
     }
 
     @Override

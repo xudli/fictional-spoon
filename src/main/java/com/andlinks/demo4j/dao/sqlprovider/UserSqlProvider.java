@@ -50,7 +50,7 @@ public class UserSqlProvider {
         StringBuffer sql = new StringBuffer("insert into user_role (user_uuid, role_uuid) values ");
         for(String roleUuid:roleUuids){
             sql.append("(");
-            sql.append(String.join(",",userUuid,roleUuid));
+            sql.append(String.join(",","'"+userUuid+"'","'"+roleUuid+"'"));
             sql.append("),");
         }
         sql.deleteCharAt(sql.length()-1);
