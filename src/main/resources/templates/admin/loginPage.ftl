@@ -126,7 +126,9 @@
 </script>
 
     <!-- page specific scripts -->
-
+        <script>
+            alert(1);
+        </script>
 
 </body>
 </html>

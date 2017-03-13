@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
@@ -70,10 +70,4 @@ public class UserController {
         return "success";
     }
 
-    @ResponseStatus(value= HttpStatus.FORBIDDEN, reason="您没有此操作的权限")
-    @ExceptionHandler(AuthorizationException.class)
-    public String handleError() {
-
-        return "您没有此操作的权限";
-    }
 }

@@ -17,10 +17,8 @@ import java.util.Map;
  * 登录相关controller
  */
 @Controller
-public class LoginController implements ErrorController {
+public class LoginController extends BaseController{
 
-
-    private static final String PATH = "/error";
 
     @RequestMapping(value="/login")
     public ModelAndView login(HttpServletRequest request, Map<String, Object> map) throws Exception {
@@ -50,16 +48,5 @@ public class LoginController implements ErrorController {
     public String unAuthorized(){
         return "/admin/unAuthorized";
     }
-
-    @RequestMapping(value=PATH)
-    public String error(){
-        return "redirect:/index.html";
-    }
-
-    @Override
-    public String getErrorPath() {
-        return PATH;
-    }
-
-
+    
 }

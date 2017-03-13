@@ -20,7 +20,7 @@ import com.andlinks.demo4j.service.RoleService;
  */
 @RestController
 @RequestMapping("/api")
-public class RoleController {
+public class RoleController extends BaseController{
 
 	@Autowired
 	private RoleService roleService;
@@ -74,10 +74,4 @@ public class RoleController {
 		return "success";
 	}
 
-	@ResponseStatus(value= HttpStatus.FORBIDDEN, reason="您没有此操作的权限")
-	@ExceptionHandler(AuthorizationException.class)
-	public String handleError() {
-
-		return "您没有此操作的权限";
-	}
 }
