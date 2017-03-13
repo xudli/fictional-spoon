@@ -3,6 +3,7 @@ package com.andlinks.demo4j.controller;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +17,10 @@ import java.util.Map;
  * 登录相关controller
  */
 @Controller
-public class LoginController {
+public class LoginController implements ErrorController {
 
+
+    private static final String PATH = "/error";
 
     @RequestMapping(value="/login")
     public ModelAndView login(HttpServletRequest request, Map<String, Object> map) throws Exception {
@@ -47,5 +50,16 @@ public class LoginController {
     public String unAuthorized(){
         return "/admin/unAuthorized";
     }
+
+    @RequestMapping(value=PATH)
+    public String error(){
+        return "redirect:/index.html";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return PATH;
+    }
+
 
 }
