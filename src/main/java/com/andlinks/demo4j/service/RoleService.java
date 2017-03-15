@@ -4,6 +4,8 @@ import com.andlinks.demo4j.model.RoleDO;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+
 /**
  * Created by 王凯斌 on 2017/3/2.
  * Role的service
