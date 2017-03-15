@@ -26,7 +26,7 @@ import com.andlinks.demo4j.service.RoleService;
  */
 @RestController
 @RequestMapping("/api")
-public class RoleController {
+public class RoleController extends BaseController{
 
 	@Autowired
 	private RoleService roleService;
