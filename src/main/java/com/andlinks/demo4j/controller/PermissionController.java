@@ -24,7 +24,7 @@ import com.andlinks.demo4j.service.PermissionService;
  */
 @RestController
 @RequestMapping("/api")
-public class PermissionController {
+public class PermissionController extends BaseController {
 
 	@Autowired
 	private PermissionService permissionService;
@@ -70,10 +70,4 @@ public class PermissionController {
 		return "success";
 	}
 
-	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "您没有此操作的权限")
-	@ExceptionHandler(AuthorizationException.class)
-	public String handleError() {
-
-		return "您没有此操作的权限";
-	}
 }

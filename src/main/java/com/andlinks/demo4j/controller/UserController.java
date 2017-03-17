@@ -72,12 +72,4 @@ public class UserController extends BaseController{
 		return "success";
 	}
 
-	@ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "您没有此操作的权限")
-	@ExceptionHandler(AuthorizationException.class)
-	public String handleError() {
-
-		return "您没有此操作的权限";
-	}
-
-	
 }

@@ -27,7 +27,7 @@ public interface PermissionMapper{
 	@Results(id = "permissionBase", value = { @Result(property = "id", column = "id"),
 			@Result(property = "uuid", column = "uuid"), @Result(property = "createTime", column = "create_time"),
 			@Result(property = "modifyTime", column = "modify_time"), @Result(property = "version", column = "version"),
-			@Result(property = "deleted", column = "is_deleted"),
+			@Result(property = "deleted", column = "deleted"),
 			@Result(property = "permissionName", column = "permission_name"),
 			@Result(property = "permissionNameCN", column = "permission_name_cn"),
 			@Result(property = "roles", javaType = List.class, column = "uuid", many = @Many(select = "listRoles")) })

@@ -24,7 +24,7 @@ public interface UserMapper {
             @Result(property = "createTime", column = "create_time"),
             @Result(property = "modifyTime", column = "modify_time"),
             @Result(property = "version", column = "version"),
-            @Result(property = "deleted", column = "is_deleted"),
+            @Result(property = "deleted", column = "deleted"),
             @Result(property="userName", column="user_name"),
             @Result(property="password", column="password"),
             @Result(property="roles", javaType=List.class, column="uuid",
@@ -46,7 +46,7 @@ public interface UserMapper {
     @ResultMap(value = "userBase")
     List<UserDO> list();
 
-    @Insert("insert into user(user_name, password, create_time, modify_time, version, is_deleted, uuid) " +
+    @Insert("insert into user(user_name, password, create_time, modify_time, version, deleted, uuid) " +
             "values( #{userName}, #{password}, now(), now(), 0, 0, #{uuid})")
     void save(UserDO userDO);
 

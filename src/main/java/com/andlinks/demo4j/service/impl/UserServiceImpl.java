@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -107,18 +108,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 删除认证缓存和授权缓存
-	 * 删除用户后;用户修改密码;
+	 * 删除认证缓存和授权缓存 删除用户后;用户修改密码; 
+	 * TODO:目前无法强制该用户logout
 	 */
 	private void clearCache(String userUuid) {
-		try {
-			UserDO user = userMapper.getByUuid(userUuid);
-			List<UserDO> userList = new ArrayList<UserDO>();
-			userList.add(user);
-			shiroRealm.doClearCache(userList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }
