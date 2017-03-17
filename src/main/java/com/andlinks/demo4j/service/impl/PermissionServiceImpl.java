@@ -1,18 +1,13 @@
 package com.andlinks.demo4j.service.impl;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.andlinks.demo4j.ShiroRealm;
 import com.andlinks.demo4j.dao.PermissionMapper;
-import com.andlinks.demo4j.dao.RoleMapper;
+import com.andlinks.demo4j.helper.ShiroRealmHelper;
 import com.andlinks.demo4j.model.PermissionDO;
-import com.andlinks.demo4j.model.RoleDO;
-import com.andlinks.demo4j.model.UserDO;
 import com.andlinks.demo4j.service.PermissionService;
 import com.andlinks.demo4j.util.UuidUtils;
 
@@ -26,10 +21,7 @@ public class PermissionServiceImpl implements PermissionService {
 	private PermissionMapper permissionMapper;
 
 	@Autowired
-	private RoleMapper roleMapper;
-
-	@Autowired
-	private ShiroRealm shiroRealm;
+	private ShiroRealmHelper shiroRealmHelper;
 
 	@Override
 	public PermissionDO getById(Long id) {
@@ -56,37 +48,14 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public void update(PermissionDO permissionDO) {
-		this.clearAuthorizationCache(permissionDO.getUuid());
+		shiroRealmHelper.clearCachedAuthorizationByPermissionUuid(permissionDO.getUuid());
 		permissionMapper.update(permissionDO);
 	}
 
 	@Override
 	public void remove(String uuid) {
-		this.clearAuthorizationCache(uuid);
+		shiroRealmHelper.clearCachedAuthorizationByPermissionUuid(uuid);
 		permissionMapper.remove(uuid);
 	}
 
-	/**
-	 * 删除该权限关联人员的授权缓存
-	 * 
-	 * @param permissionUuid
-	 *            权限uuid
-	 */
-	private void clearAuthorizationCache(String permissionUuid) {
-		try {
-			PermissionDO permission = permissionMapper.getByUuid(permissionUuid);
-			if (permission != null && permission.getRoles() != null && permission.getRoles().size() > 0) {
-				Set<UserDO> userSet = new HashSet<UserDO>();
-				permission.getRoles().forEach(n -> {
-					if (n != null) {
-						RoleDO role = roleMapper.getByUuid(n.getUuid());
-						userSet.addAll(role.getUsers());
-					}
-				});
-				shiroRealm.clearCachedAuthorizationInfo(userSet);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

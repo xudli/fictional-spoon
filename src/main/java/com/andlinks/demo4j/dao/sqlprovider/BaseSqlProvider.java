@@ -11,6 +11,14 @@ import org.apache.ibatis.jdbc.SQL;
 import com.andlinks.demo4j.model.BaseDO;
 import com.andlinks.demo4j.util.CamelCaseUtils;
 
+/**
+ * 
+ * SqlProvider 基类
+ * 
+ * @author lixudong
+ *
+ * @param <T>
+ */
 public abstract class BaseSqlProvider<T extends BaseDO> {
 
 	public String getById() {

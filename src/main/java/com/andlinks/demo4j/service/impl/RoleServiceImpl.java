@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andlinks.demo4j.ShiroRealm;
 import com.andlinks.demo4j.dao.RoleMapper;
+import com.andlinks.demo4j.helper.ShiroRealmHelper;
 import com.andlinks.demo4j.model.RoleDO;
 import com.andlinks.demo4j.service.RoleService;
 import com.andlinks.demo4j.util.UuidUtils;
@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
 	private RoleMapper roleMapper;
 
 	@Autowired
-	private ShiroRealm shiroRealm;
+	private ShiroRealmHelper shiroRealmHelper;
 
 	@Override
 	public RoleDO getById(Long id) {
@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void updatePermission(String roleUuid, String[] permissionUuids) {
 
-		this.clearAuthorizationCache(roleUuid);
+		shiroRealmHelper.clearCachedAuthorizationByRoleUuid(roleUuid);
 		roleMapper.removePermissions(roleUuid);
 		if (permissionUuids != null && permissionUuids.length != 0) {
 			roleMapper.insertPermissions(roleUuid, permissionUuids);
@@ -67,22 +67,9 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void remove(String uuid) {
-		this.clearAuthorizationCache(uuid);
+		shiroRealmHelper.clearCachedAuthorizationByRoleUuid(uuid);
 		roleMapper.remove(uuid);
 
 	}
 
-	/**
-	 * 删除该角色关联的人员的授权缓存
-	 * 
-	 * @param roleUuid
-	 */
-	private void clearAuthorizationCache(String roleUuid) {
-		try {
-			RoleDO role = roleMapper.getByUuid(roleUuid);
-			shiroRealm.clearCachedAuthorizationInfo(role.getUsers());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
