@@ -1,9 +1,0 @@
-server:
-    port: 8081
-spring:
-  datasource:
-    url: jdbc:mysql://aliyunrds.mysql.rds.aliyuncs.com:3306/andlinks_demo?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-    username: andlinks_demo
-    password: P@sswordAndLinks2017
-    driver-class-name: com.mysql.jdbc.Driver
-    platform: mysql
