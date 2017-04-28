@@ -1,7 +1,7 @@
 package org.deepinfo.proton.service.impl;
 
-import org.deepinfo.proton.dao.ExampleRepotory;
-import org.deepinfo.proton.domain.ExampleDO;
+import org.deepinfo.proton.repository.ExampleRepotory;
+import org.deepinfo.proton.model.ExampleDO;
 import org.deepinfo.proton.service.ExampleService;
 import org.deepinfo.proton.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;

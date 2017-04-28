@@ -1,4 +1,4 @@
-package org.deepinfo.proton.domain;
+package org.deepinfo.proton.model;
 
 
 import javax.persistence.Column;

@@ -1,6 +1,6 @@
-package org.deepinfo.proton.dao;
+package org.deepinfo.proton.repository;
 
-import org.deepinfo.proton.domain.ExampleDO;
+import org.deepinfo.proton.model.ExampleDO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

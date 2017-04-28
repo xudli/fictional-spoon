@@ -1,4 +1,4 @@
-package org.deepinfo.proton.domain;
+package org.deepinfo.proton.model;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 

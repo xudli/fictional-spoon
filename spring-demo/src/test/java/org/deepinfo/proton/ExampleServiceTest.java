@@ -1,6 +1,6 @@
 package org.deepinfo.proton;
 
-import org.deepinfo.proton.domain.ExampleDO;
+import org.deepinfo.proton.model.ExampleDO;
 import org.deepinfo.proton.service.ExampleService;
 import org.junit.Before;
 import org.junit.Test;
