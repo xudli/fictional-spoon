@@ -1,4 +1,4 @@
-package com.andlinks;
+package org.deepinfo.proton;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
