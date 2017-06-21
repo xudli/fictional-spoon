@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringRunner.class)
 @Transactional
-@SpringBootTest(classes = ProtonApplication.class)
+@SpringBootTest(classes = Application.class)
 //@SpringBootConfiguration
 public class ExampleServiceTest {
 

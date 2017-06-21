@@ -1,4 +1,4 @@
-package org.deepinfo.proton.repository;
+package org.deepinfo.proton.dao;
 
 import org.deepinfo.proton.model.ExampleDO;
 import org.springframework.data.domain.Page;
